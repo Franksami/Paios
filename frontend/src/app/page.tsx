@@ -121,7 +121,7 @@ export default function HomePage() {
       {selectedNumber !== null && (
         <button
           onClick={handleNextClick}
-          className="fixed bottom-8 right-8 w-12 h-12 bg-black rounded-full hover:opacity-80 transition-opacity duration-200"
+          className="fixed top-1/2 right-8 -translate-y-1/2 w-12 h-12 bg-black rounded-full hover:opacity-80 transition-opacity duration-200"
           aria-label="Next"
         />
       )}
