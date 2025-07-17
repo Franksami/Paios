@@ -4,10 +4,6 @@ const nextConfig = {
   swcMinify: true,
   poweredByHeader: false,
   
-  // Enable experimental features
-  experimental: {
-    serverActions: true,
-  },
 
   // Security headers
   async headers() {

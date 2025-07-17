@@ -1,89 +1,100 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { useAgentStore } from '@/stores/agent-store'
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useAgentStore } from "@/stores/agent-store";
 
 interface BusinessIntelligenceDisplayProps {
-  agent: any
+  agent: any;
 }
 
-export function BusinessIntelligenceDisplay({ agent }: BusinessIntelligenceDisplayProps) {
-  const { executeCommand } = useAgentStore()
-  const [activeView, setActiveView] = useState<'revenue' | 'expenses' | 'profit' | 'growth'>('revenue')
-  const [data, setData] = useState<any>(null)
-  const [isLoading, setIsLoading] = useState(false)
+export function BusinessIntelligenceDisplay({}: BusinessIntelligenceDisplayProps) {
+  const { executeCommand } = useAgentStore();
+  const [activeView, setActiveView] = useState<
+    "revenue" | "expenses" | "profit" | "growth"
+  >("revenue");
+  const [data, setData] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     // Load initial data
-    loadData('revenue')
-  }, [])
+    loadData("revenue");
+  }, []);
 
   const loadData = async (view: string) => {
-    setIsLoading(true)
+    setIsLoading(true);
     try {
       const command = {
         action: `get_${view}`,
-        parameters: {}
-      }
-      
-      const response = await executeCommand(1, command)
+        parameters: {},
+        userId: "demo-user",
+        requestId: `req-${Date.now()}`,
+        timestamp: new Date(),
+      };
+
+      const response = await executeCommand(1, command);
       if (response.success) {
-        setData(response.data)
+        setData(response.data);
       }
     } catch (error) {
-      console.error('Failed to load data:', error)
+      console.error("Failed to load data:", error);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
-  const handleViewChange = (view: 'revenue' | 'expenses' | 'profit' | 'growth') => {
-    setActiveView(view)
-    loadData(view)
-  }
+  const handleViewChange = (
+    view: "revenue" | "expenses" | "profit" | "growth",
+  ) => {
+    setActiveView(view);
+    loadData(view);
+  };
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(amount)
-  }
-
-  const renderMetricCard = (title: string, value: string, subtitle?: string, trend?: string) => (
+  const renderMetricCard = (
+    title: string,
+    value: string,
+    subtitle?: string,
+    trend?: string,
+  ) => (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.2 }}
       className="bg-gray-50 dark:bg-gray-900 rounded-lg p-6"
     >
-      <h4 className="text-sm font-medium text-gray-500 dark:text-gray-400">{title}</h4>
-      <p className="text-2xl font-semibold text-gray-900 dark:text-white mt-2">{value}</p>
+      <h4 className="text-sm font-medium text-gray-500 dark:text-gray-400">
+        {title}
+      </h4>
+      <p className="text-2xl font-semibold text-gray-900 dark:text-white mt-2">
+        {value}
+      </p>
       {subtitle && (
-        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{subtitle}</p>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+          {subtitle}
+        </p>
       )}
       {trend && (
-        <p className={`text-sm mt-2 ${trend.startsWith('+') ? 'text-green-600' : 'text-red-600'}`}>
+        <p
+          className={`text-sm mt-2 ${trend.startsWith("+") ? "text-green-600" : "text-red-600"}`}
+        >
           {trend}
         </p>
       )}
     </motion.div>
-  )
+  );
 
   return (
     <div className="space-y-6">
       {/* View Toggle */}
       <div className="flex space-x-2 border-b border-gray-200 dark:border-gray-800">
-        {(['revenue', 'expenses', 'profit', 'growth'] as const).map((view) => (
+        {(["revenue", "expenses", "profit", "growth"] as const).map((view) => (
           <button
             key={view}
             onClick={() => handleViewChange(view)}
             className={`px-4 py-2 text-sm font-medium capitalize transition-colors ${
               activeView === view
-                ? 'text-black dark:text-white border-b-2 border-black dark:border-white'
-                : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+                ? "text-black dark:text-white border-b-2 border-black dark:border-white"
+                : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
             }`}
           >
             {view}
@@ -96,7 +107,7 @@ export function BusinessIntelligenceDisplay({ agent }: BusinessIntelligenceDispl
         <div className="flex justify-center py-8">
           <motion.div
             animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
             className="w-6 h-6 border-2 border-gray-300 border-t-gray-800 rounded-full"
           />
         </div>
@@ -104,59 +115,59 @@ export function BusinessIntelligenceDisplay({ agent }: BusinessIntelligenceDispl
         <div className="space-y-6">
           {/* Summary Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {activeView === 'revenue' && data.current && (
+            {activeView === "revenue" && data.current && (
               <>
                 {renderMetricCard(
-                  'Current Month',
+                  "Current Month",
                   data.current.formatted,
-                  data.current.month
+                  data.current.month,
                 )}
                 {renderMetricCard(
-                  'Total Revenue',
+                  "Total Revenue",
                   data.total.formatted,
-                  'Year to date'
+                  "Year to date",
                 )}
               </>
             )}
-            {activeView === 'expenses' && data.current && (
+            {activeView === "expenses" && data.current && (
               <>
                 {renderMetricCard(
-                  'Current Month',
+                  "Current Month",
                   data.current.formatted,
-                  data.current.month
+                  data.current.month,
                 )}
                 {renderMetricCard(
-                  'Total Expenses',
+                  "Total Expenses",
                   data.total.formatted,
-                  'Year to date'
+                  "Year to date",
                 )}
               </>
             )}
-            {activeView === 'profit' && data.current && (
+            {activeView === "profit" && data.current && (
               <>
                 {renderMetricCard(
-                  'Current Month',
+                  "Current Month",
                   data.current.formatted,
-                  `${data.current.month} (${data.current.margin}% margin)`
+                  `${data.current.month} (${data.current.margin}% margin)`,
                 )}
                 {renderMetricCard(
-                  'Average Profit',
+                  "Average Profit",
                   data.average.formatted,
-                  'Monthly average'
+                  "Monthly average",
                 )}
               </>
             )}
-            {activeView === 'growth' && data.current && (
+            {activeView === "growth" && data.current && (
               <>
                 {renderMetricCard(
-                  'Current Growth',
+                  "Current Growth",
                   data.current.formatted,
-                  data.current.month
+                  data.current.month,
                 )}
                 {renderMetricCard(
-                  'Average Growth',
+                  "Average Growth",
                   data.average.formatted,
-                  `Trend: ${data.trend}`
+                  `Trend: ${data.trend}`,
                 )}
               </>
             )}
@@ -190,10 +201,13 @@ export function BusinessIntelligenceDisplay({ agent }: BusinessIntelligenceDispl
                         </span>
                       )}
                       {month.growth !== undefined && month.growth !== 0 && (
-                        <span className={`text-xs ml-2 ${
-                          month.growth > 0 ? 'text-green-600' : 'text-red-600'
-                        }`}>
-                          {month.growth > 0 ? '+' : ''}{month.growth}%
+                        <span
+                          className={`text-xs ml-2 ${
+                            month.growth > 0 ? "text-green-600" : "text-red-600"
+                          }`}
+                        >
+                          {month.growth > 0 ? "+" : ""}
+                          {month.growth}%
                         </span>
                       )}
                     </div>
@@ -222,5 +236,5 @@ export function BusinessIntelligenceDisplay({ agent }: BusinessIntelligenceDispl
         </button>
       </div>
     </div>
-  )
+  );
 }
