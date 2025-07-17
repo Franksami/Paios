@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useAgentStore } from "../../stores/agent-store";
 import { BusinessIntelligenceDisplay } from "./displays/BusinessIntelligenceDisplay";
-import { SystemArchitectureDisplay } from "./displays/SystemArchitectureDisplay";
+// Temporarily commented out for single-agent deployment
+// import { SystemArchitectureDisplay } from "./displays/SystemArchitectureDisplay";
 
 interface AgentDisplayProps {
   agentNumber: number;
@@ -69,8 +70,9 @@ export function AgentDisplay({
     switch (agentNumber) {
       case 1:
         return <BusinessIntelligenceDisplay agent={agent} />;
-      case 31:
-        return <SystemArchitectureDisplay agent={agent} />;
+      // Temporarily commented out for single-agent deployment
+      // case 31:
+      //   return <SystemArchitectureDisplay agent={agent} />;
       // Add other agent displays here as they are implemented
       default:
         return (

@@ -24,18 +24,8 @@ export default function HomePage() {
     }))
     .sort((a, b) => a.number - b.number);
 
-  // Pad with placeholder agents to reach 33
+  // For single-agent deployment, just use the available agents
   const allAgents = [...agents];
-  for (let i = 1; i <= 33; i++) {
-    if (!allAgents.find((a) => a.number === i)) {
-      allAgents.push({
-        number: i as any, // Type assertion for placeholder agents
-        name: `Agent ${i}`,
-        description: "Coming soon...",
-      });
-    }
-  }
-  allAgents.sort((a, b) => a.number - b.number);
 
   // Connect to WebSocket on mount (in production, use actual auth token)
   useEffect(() => {
@@ -107,7 +97,7 @@ export default function HomePage() {
                   transition={{ duration: 0.3 }}
                   className="mt-2 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg"
                 >
-                  {agent.number === 1 || agent.number === 31 ? (
+                  {agent.number === 1 ? (
                     <AgentDisplay
                       agentNumber={agent.number}
                       agentName={agent.name}
