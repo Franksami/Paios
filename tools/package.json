@@ -1,0 +1,32 @@
+{
+  "name": "paios-tools",
+  "version": "1.0.0",
+  "description": "Development and deployment tools for PAIOS",
+  "private": true,
+  "scripts": {
+    "generate-agent": "ts-node development/agent-generator.ts",
+    "db-migrate": "ts-node development/db-migrate.ts",
+    "seed-data": "ts-node development/seed-data.ts",
+    "type-generator": "ts-node development/type-generator.ts",
+    "build-checker": "ts-node deployment/build-checker.ts",
+    "env-validator": "ts-node deployment/env-validator.ts",
+    "backup-database": "ts-node utilities/backup-tool.ts",
+    "cleanup": "ts-node utilities/cleanup-tool.ts"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^11.1.0",
+    "fs-extra": "^11.2.0",
+    "inquirer": "^9.2.12",
+    "dotenv": "^16.3.1",
+    "pg": "^8.11.0",
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/fs-extra": "^11.0.4",
+    "@types/inquirer": "^9.0.7",
+    "typescript": "^5.3.0",
+    "ts-node": "^10.9.0"
+  }
+}

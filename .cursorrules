@@ -1,0 +1,43 @@
+# Personal AI Operating System - Cursor Rules
+
+## Project Overview
+This is a self-modifying AI agent system with voice control and real-time architecture visualization. Focus on clean, maintainable code that teaches users about system architecture through interaction.
+
+## Code Standards
+- Use TypeScript for all new code
+- Follow functional programming patterns where possible
+- Implement comprehensive error handling
+- Write self-documenting code with clear variable names
+- Use consistent naming conventions across frontend/backend
+
+## Architecture Principles
+- Agents should be hot-swappable modules
+- All agent communication goes through MCP protocol
+- Voice commands should work globally and per-agent
+- System should be self-documenting and transparent
+- Security-first approach for credential management
+
+## Testing Requirements
+- Unit tests for all agents
+- Integration tests for cross-agent communication
+- E2E tests for voice commands
+- Performance tests for real-time features
+
+## Agent Development
+- Follow the base agent class pattern
+- Implement voice command parsing
+- Use structured configuration schemas
+- Include comprehensive error handling
+- Document all external API integrations
+
+## Voice Interface
+- Natural language command parsing
+- Global command routing to appropriate agents
+- Voice feedback for all actions
+- Fallback text interface for accessibility
+
+## Real-time Features
+- WebSocket for all live updates
+- Efficient caching strategies
+- Optimistic UI updates
+- Graceful degradation for offline

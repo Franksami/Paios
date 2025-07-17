@@ -1,0 +1,94 @@
+{
+  "agents": {
+    "1": {
+      "name": "Business Intelligence",
+      "enabled": true,
+      "config": {
+        "refreshInterval": 300,
+        "cacheEnabled": true,
+        "maxRetries": 3
+      }
+    },
+    "7": {
+      "name": "Web Scraping",
+      "enabled": true,
+      "config": {
+        "maxConcurrentRequests": 5,
+        "requestTimeout": 30000,
+        "retryDelay": 1000
+      }
+    },
+    "8": {
+      "name": "Social Media",
+      "enabled": true,
+      "config": {
+        "platforms": ["twitter", "instagram", "linkedin", "tiktok"],
+        "postScheduling": true,
+        "analyticsEnabled": true
+      }
+    },
+    "15": {
+      "name": "Invoicing",
+      "enabled": true,
+      "config": {
+        "emailEnabled": true,
+        "pdfGeneration": true,
+        "templateEngine": "handlebars"
+      }
+    },
+    "18": {
+      "name": "Research",
+      "enabled": true,
+      "config": {
+        "maxSources": 10,
+        "summaryLength": 500,
+        "citationStyle": "APA"
+      }
+    },
+    "29": {
+      "name": "Publishing",
+      "enabled": true,
+      "config": {
+        "platforms": ["medium", "dev.to", "hashnode"],
+        "autoPublish": false,
+        "seoOptimization": true
+      }
+    },
+    "30": {
+      "name": "System Rules",
+      "enabled": true,
+      "config": {
+        "maxRules": 100,
+        "executionMode": "sequential",
+        "debugMode": false
+      }
+    },
+    "31": {
+      "name": "System Architecture",
+      "enabled": true,
+      "config": {
+        "refreshInterval": 60,
+        "diagramFormat": "mermaid",
+        "metricsEnabled": true
+      }
+    },
+    "32": {
+      "name": "Password Vault",
+      "enabled": true,
+      "config": {
+        "biometricRequired": true,
+        "sessionTimeout": 900,
+        "encryptionAlgorithm": "AES-256-GCM"
+      }
+    },
+    "33": {
+      "name": "Personal Directory",
+      "enabled": true,
+      "config": {
+        "maxBookmarks": 1000,
+        "taggingEnabled": true,
+        "syncEnabled": true
+      }
+    }
+  }
+}

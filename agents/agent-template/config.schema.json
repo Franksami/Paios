@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Template Agent Configuration",
+  "description": "Configuration schema for the Template Agent",
+  "type": "object",
+  "properties": {
+    "apiKeys": {
+      "type": "object",
+      "properties": {
+        "exampleKey": {
+          "type": "string",
+          "description": "API key for example service",
+          "minLength": 10
+        }
+      },
+      "required": ["exampleKey"]
+    },
+    "settings": {
+      "type": "object",
+      "properties": {
+        "refreshInterval": {
+          "type": "number",
+          "description": "Data refresh interval in seconds",
+          "minimum": 60,
+          "default": 300
+        },
+        "maxRetries": {
+          "type": "number",
+          "description": "Maximum number of retries for failed requests",
+          "minimum": 0,
+          "maximum": 10,
+          "default": 3
+        },
+        "timeout": {
+          "type": "number",
+          "description": "Request timeout in milliseconds",
+          "minimum": 1000,
+          "maximum": 60000,
+          "default": 30000
+        }
+      }
+    },
+    "voiceEnabled": {
+      "type": "boolean",
+      "description": "Enable voice command processing",
+      "default": true
+    },
+    "voiceSettings": {
+      "type": "object",
+      "properties": {
+        "language": {
+          "type": "string",
+          "description": "Voice command language",
+          "default": "en-US"
+        },
+        "voiceId": {
+          "type": "string",
+          "description": "Text-to-speech voice ID"
+        }
+      }
+    }
+  },
+  "required": ["apiKeys"],
+  "additionalProperties": false
+}

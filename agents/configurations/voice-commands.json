@@ -1,0 +1,152 @@
+{
+  "globalCommands": [
+    {
+      "patterns": ["show agent (\\d+)", "open agent (\\d+)", "go to agent (\\d+)"],
+      "action": "activate_agent",
+      "parameters": {
+        "agentNumber": "$1"
+      }
+    },
+    {
+      "patterns": ["list agents", "show all agents", "what agents are available"],
+      "action": "list_agents"
+    },
+    {
+      "patterns": ["help", "what can you do", "show commands"],
+      "action": "show_help"
+    }
+  ],
+  "agentCommands": {
+    "1": [
+      {
+        "patterns": ["show revenue", "display income", "financial status", "how much money"],
+        "action": "get_revenue"
+      },
+      {
+        "patterns": ["show expenses", "display costs", "spending report"],
+        "action": "get_expenses"
+      },
+      {
+        "patterns": ["revenue for (.*)", "income in (.*)"],
+        "action": "get_revenue_period",
+        "parameters": {
+          "period": "$1"
+        }
+      }
+    ],
+    "7": [
+      {
+        "patterns": ["scrape (.*)", "extract data from (.*)", "get data from (.*)"],
+        "action": "scrape_url",
+        "parameters": {
+          "url": "$1"
+        }
+      },
+      {
+        "patterns": ["monitor (.*)", "watch website (.*)"],
+        "action": "monitor_website",
+        "parameters": {
+          "url": "$1"
+        }
+      }
+    ],
+    "8": [
+      {
+        "patterns": ["post to (twitter|instagram|linkedin|tiktok)", "share on (.*)"],
+        "action": "post_to_platform",
+        "parameters": {
+          "platform": "$1"
+        }
+      },
+      {
+        "patterns": ["show social media stats", "social analytics", "engagement report"],
+        "action": "get_analytics"
+      }
+    ],
+    "15": [
+      {
+        "patterns": ["create invoice", "generate invoice", "new invoice"],
+        "action": "create_invoice"
+      },
+      {
+        "patterns": ["send invoice to (.*)", "email invoice to (.*)"],
+        "action": "send_invoice",
+        "parameters": {
+          "recipient": "$1"
+        }
+      }
+    ],
+    "18": [
+      {
+        "patterns": ["research (.*)", "find information about (.*)", "tell me about (.*)"],
+        "action": "research_topic",
+        "parameters": {
+          "topic": "$1"
+        }
+      },
+      {
+        "patterns": ["summarize (.*)", "give me a summary of (.*)"],
+        "action": "summarize_content",
+        "parameters": {
+          "content": "$1"
+        }
+      }
+    ],
+    "29": [
+      {
+        "patterns": ["publish article", "publish post", "publish content"],
+        "action": "publish_content"
+      },
+      {
+        "patterns": ["schedule post for (.*)", "publish at (.*)"],
+        "action": "schedule_content",
+        "parameters": {
+          "time": "$1"
+        }
+      }
+    ],
+    "30": [
+      {
+        "patterns": ["create rule", "add workflow", "new automation"],
+        "action": "create_rule"
+      },
+      {
+        "patterns": ["show rules", "list workflows", "show automations"],
+        "action": "list_rules"
+      }
+    ],
+    "31": [
+      {
+        "patterns": ["show system diagram", "display architecture", "system overview"],
+        "action": "show_architecture"
+      },
+      {
+        "patterns": ["system health", "performance metrics", "system status"],
+        "action": "show_metrics"
+      }
+    ],
+    "32": [
+      {
+        "patterns": ["save password", "store credential", "add password"],
+        "action": "save_credential"
+      },
+      {
+        "patterns": ["get password for (.*)", "show credential for (.*)"],
+        "action": "get_credential",
+        "parameters": {
+          "service": "$1"
+        }
+      }
+    ],
+    "33": [
+      {
+        "patterns": ["save bookmark", "bookmark this", "add to favorites"],
+        "action": "save_bookmark"
+      },
+      {
+        "patterns": ["show bookmarks", "list favorites", "my shortcuts"],
+        "action": "list_bookmarks"
+      }
+    ]
+  }
+}
