@@ -1,0 +1,29 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "installCommand": "npm install",
+  "regions": ["iad1"],
+  "env": {
+    "NEXT_PUBLIC_MOCK_MODE": "true",
+    "NEXT_PUBLIC_API_URL": "/api",
+    "NEXT_PUBLIC_WS_URL": "",
+    "NEXT_PUBLIC_VOICE_ENABLED": "true"
+  },
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_MOCK_MODE": "true",
+      "NEXT_PUBLIC_API_URL": "/api",
+      "NEXT_PUBLIC_WS_URL": "",
+      "NEXT_PUBLIC_VOICE_ENABLED": "true"
+    }
+  },
+  "functions": {
+    "app/api/agents/[id]/route.ts": {
+      "maxDuration": 10
+    },
+    "app/api/voice/route.ts": {
+      "maxDuration": 10
+    }
+  }
+}

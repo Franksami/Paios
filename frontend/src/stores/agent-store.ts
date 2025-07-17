@@ -7,6 +7,7 @@ interface AgentState {
   isConnected: boolean
   agents: Record<number, any>
   activeAgent: number | null
+  isMockMode: boolean
   
   // Actions
   connect: (token: string) => Promise<void>
@@ -22,11 +23,19 @@ export const useAgentStore = create<AgentState>((set, get) => ({
   isConnected: false,
   agents: {},
   activeAgent: null,
+  isMockMode: process.env.NEXT_PUBLIC_MOCK_MODE === 'true',
 
   connect: async (token: string) => {
-    const { socket } = get()
+    const { socket, isMockMode } = get()
     
     if (socket?.connected) {
+      return
+    }
+
+    // In mock mode, simulate connection without actual WebSocket
+    if (isMockMode) {
+      console.log('Running in mock mode - simulating connection')
+      set({ isConnected: true })
       return
     }
 
@@ -103,7 +112,23 @@ export const useAgentStore = create<AgentState>((set, get) => ({
   },
 
   initializeAgent: async (agentNumber: number, config?: any) => {
-    const { socket } = get()
+    const { socket, isMockMode } = get()
+    
+    // Mock mode implementation
+    if (isMockMode) {
+      set((state) => ({
+        agents: {
+          ...state.agents,
+          [agentNumber]: {
+            initialized: true,
+            config,
+            status: 'idle',
+          },
+        },
+      }))
+      return
+    }
+    
     if (!socket) throw new Error('Not connected')
 
     return new Promise((resolve, reject) => {
@@ -128,7 +153,23 @@ export const useAgentStore = create<AgentState>((set, get) => ({
   },
 
   executeCommand: async (agentNumber: number, command: AgentCommand) => {
-    const { socket } = get()
+    const { socket, isMockMode } = get()
+    
+    // Mock mode implementation
+    if (isMockMode) {
+      const response = await fetch(`/api/agents/${agentNumber}/execute`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(command),
+      })
+      const data = await response.json()
+      if (data.success) {
+        return data.data
+      } else {
+        throw new Error(data.error || 'Command execution failed')
+      }
+    }
+    
     if (!socket) throw new Error('Not connected')
 
     return new Promise((resolve, reject) => {
@@ -143,7 +184,23 @@ export const useAgentStore = create<AgentState>((set, get) => ({
   },
 
   processVoiceCommand: async (agentNumber: number, text: string) => {
-    const { socket } = get()
+    const { socket, isMockMode } = get()
+    
+    // Mock mode implementation
+    if (isMockMode) {
+      const response = await fetch('/api/voice', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text, activeAgent: agentNumber }),
+      })
+      const data = await response.json()
+      if (data.success) {
+        return data.data.text
+      } else {
+        throw new Error(data.error || 'Voice command failed')
+      }
+    }
+    
     if (!socket) throw new Error('Not connected')
 
     return new Promise((resolve, reject) => {
