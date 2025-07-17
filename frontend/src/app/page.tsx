@@ -1,27 +1,56 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function HomePage() {
   const [selectedNumber, setSelectedNumber] = useState<number | null>(null);
   const [showData, setShowData] = useState(true);
+  const [nodeButtonPosition, setNodeButtonPosition] = useState("right-8");
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const nodeColors = {
+    1: "bg-black",
+    2: "bg-orange-300", // Pastel Anthropic orange
+    3: "bg-sky-300",    // Pastel blue
+    4: "bg-green-300",  // Pastel green
+    5: "bg-purple-300", // Pastel purple
+  };
 
   const handleNumberClick = (num: number) => {
     setSelectedNumber(num);
-    setShowData(true); // Reset data visibility when selecting new number
+    setShowData(true);
+    // Trigger magnetic animation
+    setIsAnimating(true);
+    setTimeout(() => {
+      setNodeButtonPosition("right-24");
+    }, 50);
   };
 
   const handleMainNavClick = () => {
-    if (selectedNumber === null) {
-      setSelectedNumber(1);
-    } else {
-      setSelectedNumber(selectedNumber === 5 ? 1 : selectedNumber + 1);
-    }
-    setShowData(true); // Reset data visibility when navigating
+    // Hide current node button with animation
+    setNodeButtonPosition("right-8");
+    setIsAnimating(false);
+    
+    setTimeout(() => {
+      if (selectedNumber === null) {
+        setSelectedNumber(1);
+      } else {
+        setSelectedNumber(selectedNumber === 5 ? 1 : selectedNumber + 1);
+      }
+      setShowData(true);
+      
+      // Show new node button with magnetic animation
+      setTimeout(() => {
+        setIsAnimating(true);
+        setTimeout(() => {
+          setNodeButtonPosition("right-24");
+        }, 50);
+      }, 100);
+    }, 200);
   };
 
   const handleNodeControlClick = () => {
-    setShowData(!showData); // Toggle data visibility
+    setShowData(!showData);
   };
 
   const numbers = [1, 2, 3, 4, 5];
@@ -149,7 +178,7 @@ export default function HomePage() {
       {/* Main Navigation Button - Always Visible */}
       <button
         onClick={handleMainNavClick}
-        className="fixed top-1/2 right-1/3 -translate-y-1/2 w-16 h-16 bg-black rounded-full hover:opacity-80 transition-opacity duration-200"
+        className="fixed top-1/2 right-1/3 -translate-y-1/2 w-24 h-24 bg-black rounded-full hover:opacity-80 transition-opacity duration-200 z-10"
         aria-label="Navigate"
       />
 
@@ -157,7 +186,11 @@ export default function HomePage() {
       {selectedNumber !== null && (
         <button
           onClick={handleNodeControlClick}
-          className="fixed top-1/2 right-8 -translate-y-1/2 w-8 h-8 bg-black rounded-full hover:opacity-80 transition-opacity duration-200"
+          className={`fixed top-1/2 -translate-y-1/2 w-12 h-12 rounded-full hover:opacity-80 transition-all duration-500 ${
+            nodeColors[selectedNumber as keyof typeof nodeColors]
+          } ${nodeButtonPosition} ${
+            isAnimating ? "opacity-100" : "opacity-0"
+          }`}
           aria-label="Toggle data"
         />
       )}
