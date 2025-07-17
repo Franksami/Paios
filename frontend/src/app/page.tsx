@@ -4,17 +4,24 @@ import { useState } from "react";
 
 export default function HomePage() {
   const [selectedNumber, setSelectedNumber] = useState<number | null>(null);
+  const [showData, setShowData] = useState(true);
 
   const handleNumberClick = (num: number) => {
     setSelectedNumber(num);
+    setShowData(true); // Reset data visibility when selecting new number
   };
 
-  const handleNextClick = () => {
+  const handleMainNavClick = () => {
     if (selectedNumber === null) {
       setSelectedNumber(1);
     } else {
       setSelectedNumber(selectedNumber === 5 ? 1 : selectedNumber + 1);
     }
+    setShowData(true); // Reset data visibility when navigating
+  };
+
+  const handleNodeControlClick = () => {
+    setShowData(!showData); // Toggle data visibility
   };
 
   const numbers = [1, 2, 3, 4, 5];
@@ -57,17 +64,19 @@ export default function HomePage() {
                         </p>
                       </div>
                       
-                      <div className="space-y-3 pt-2">
-                        <div>
-                          <p className="text-gray-400 text-sm">Current Month</p>
-                          <p className="text-xl">$12,500</p>
+                      {showData && (
+                        <div className="space-y-3 pt-2">
+                          <div>
+                            <p className="text-gray-400 text-sm">Current Month</p>
+                            <p className="text-xl">$12,500</p>
+                          </div>
+                          
+                          <div>
+                            <p className="text-gray-400 text-sm">Total Revenue</p>
+                            <p className="text-xl">$125,000</p>
+                          </div>
                         </div>
-                        
-                        <div>
-                          <p className="text-gray-400 text-sm">Total Revenue</p>
-                          <p className="text-xl">$125,000</p>
-                        </div>
-                      </div>
+                      )}
                     </>
                   )}
                   {num === 2 && (
@@ -78,6 +87,11 @@ export default function HomePage() {
                       <p className="text-gray-600">
                         Data extraction and automation
                       </p>
+                      {showData && (
+                        <div className="pt-2">
+                          <p className="text-gray-400 text-sm">Active scrapers: 3</p>
+                        </div>
+                      )}
                     </div>
                   )}
                   {num === 3 && (
@@ -88,6 +102,11 @@ export default function HomePage() {
                       <p className="text-gray-600">
                         Multi-platform content management
                       </p>
+                      {showData && (
+                        <div className="pt-2">
+                          <p className="text-gray-400 text-sm">Scheduled posts: 12</p>
+                        </div>
+                      )}
                     </div>
                   )}
                   {num === 4 && (
@@ -98,6 +117,11 @@ export default function HomePage() {
                       <p className="text-gray-600">
                         Data gathering and report generation
                       </p>
+                      {showData && (
+                        <div className="pt-2">
+                          <p className="text-gray-400 text-sm">Reports generated: 24</p>
+                        </div>
+                      )}
                     </div>
                   )}
                   {num === 5 && (
@@ -108,6 +132,11 @@ export default function HomePage() {
                       <p className="text-gray-600">
                         Real-time visualization and monitoring
                       </p>
+                      {showData && (
+                        <div className="pt-2">
+                          <p className="text-gray-400 text-sm">System uptime: 99.9%</p>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
@@ -117,12 +146,19 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Navigation Button */}
+      {/* Main Navigation Button - Always Visible */}
+      <button
+        onClick={handleMainNavClick}
+        className="fixed top-1/2 right-1/3 -translate-y-1/2 w-16 h-16 bg-black rounded-full hover:opacity-80 transition-opacity duration-200"
+        aria-label="Navigate"
+      />
+
+      {/* Node Control Button - Only when selected */}
       {selectedNumber !== null && (
         <button
-          onClick={handleNextClick}
-          className="fixed top-1/2 right-8 -translate-y-1/2 w-12 h-12 bg-black rounded-full hover:opacity-80 transition-opacity duration-200"
-          aria-label="Next"
+          onClick={handleNodeControlClick}
+          className="fixed top-1/2 right-8 -translate-y-1/2 w-8 h-8 bg-black rounded-full hover:opacity-80 transition-opacity duration-200"
+          aria-label="Toggle data"
         />
       )}
     </main>
