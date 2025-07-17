@@ -1,0 +1,58 @@
+# Ignore backend and other unnecessary directories for Vercel deployment
+backend/
+tools/
+deployment/
+docs/
+paios/
+shared/
+agents/
+
+# Docker files
+docker-compose.yml
+docker-compose.*.yml
+Dockerfile
+.dockerignore
+
+# Documentation files (except main README)
+*.md
+!README.md
+!frontend/README.md
+
+# Development files
+.env.example
+.cursorrules
+cursorrules_file.md
+
+# Git files
+.git/
+.gitignore
+
+# IDE files
+.vscode/
+.idea/
+
+# Test files
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+**/test/
+**/tests/
+**/__tests__/
+
+# Build artifacts
+**/dist/
+**/build/
+**/.next/
+**/out/
+
+# Dependencies (Vercel will install these)
+**/node_modules/
+
+# Logs
+**/*.log
+**/logs/
+
+# OS files
+.DS_Store
+Thumbs.db

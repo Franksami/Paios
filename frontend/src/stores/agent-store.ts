@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { io, Socket } from 'socket.io-client'
-import { AgentCommand, AgentResponse } from '@paios/shared'
+import { AgentCommand, AgentResponse } from '@/types/shared'
 
 interface AgentState {
   socket: Socket | null

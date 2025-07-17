@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { AgentDisplay } from '@/components/agents/AgentDisplay'
 import { VoiceButton } from '@/components/VoiceButton'
 import { useAgentStore } from '@/stores/agent-store'
-import { AGENT_NUMBERS, AGENT_NAMES, AGENT_DESCRIPTIONS } from '@paios/shared'
+import { AGENT_NUMBERS, AGENT_NAMES, AGENT_DESCRIPTIONS } from '@/types/shared'
 
 export default function HomePage() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
