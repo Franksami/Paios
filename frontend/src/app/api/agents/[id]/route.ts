@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { AGENT_NUMBERS, AGENT_NAMES, AGENT_DESCRIPTIONS } from "@/types/shared";
+import {
+  AGENT_NUMBERS,
+  AGENT_NAMES,
+  AGENT_DESCRIPTIONS,
+} from "../../../../types/shared";
 
 // Mock agent data store (in production, this would be in a database)
 const mockAgentStates = new Map<string, any>();

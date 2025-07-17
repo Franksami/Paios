@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useVoiceStore } from "@/stores/voice-store";
-import { useAgentStore } from "@/stores/agent-store";
+import { useVoiceStore } from "../stores/voice-store";
+import { useAgentStore } from "../stores/agent-store";
 
 interface VoiceButtonProps {
   activeAgent: number | null;

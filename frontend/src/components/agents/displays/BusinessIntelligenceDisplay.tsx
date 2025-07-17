@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { useAgentStore } from "@/stores/agent-store";
+import { useAgentStore } from "../../../stores/agent-store";
 
 interface BusinessIntelligenceDisplayProps {
   agent: any;

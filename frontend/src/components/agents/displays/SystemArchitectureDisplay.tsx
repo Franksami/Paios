@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { useAgentStore } from "@/stores/agent-store";
+import { useAgentStore } from "../../../stores/agent-store";
 import mermaid from "mermaid";
 
 interface SystemArchitectureDisplayProps {

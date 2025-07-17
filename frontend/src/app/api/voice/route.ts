@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { AGENT_NUMBERS } from "@/types/shared";
+import { AGENT_NUMBERS } from "../../../types/shared";
 
 // Mock voice command processing
 export async function POST(request: NextRequest) {
